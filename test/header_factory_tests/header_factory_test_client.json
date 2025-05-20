@@ -1,0 +1,110 @@
+{
+   "unicast" : "127.0.0.1",
+   "netmask" : "255.255.255.0",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "file" : 
+      {
+         "enable" : "true",
+         "path" : "/var/log/vsomeip.log"
+      },
+
+      "dlt" : "true"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "header_factory_test_client",
+         "id" : "0x1343"
+      }
+   ],
+ "services" : 
+ [
+    {
+       "service" : "0x1234",
+       "instance" : "0x5678",
+       "unreliable" : "30509",
+       "events" : 
+       [
+          {
+             "event" : "0x0777",
+             "is_field" : "true"
+          },
+
+          {
+             "event" : "0x0778",
+             "is_field" : "false"
+          },
+
+          {
+             "event" : "0x0779",
+             "is_field" : "true"
+          }
+       ],
+
+       "eventgroups" : 
+       [
+          {
+             "eventgroup" : "0x4455",
+             "events" : 
+             [
+                "0x777",
+                "0x778"
+             ]
+          },
+
+          {
+             "eventgroup" : "0x4465",
+             "events" : 
+             [
+                "0x778",
+                "0x779"
+             ],
+
+             "is_multicast" : "true"
+          },
+
+          {
+             "eventgroup" : "0x4555",
+             "events" : 
+             [
+                "0x777",
+                "0x779"
+             ]
+          }
+       ]
+      }
+   ],
+
+   "routing" : "header_factory_test_service",
+   "service-discovery" : 
+   {
+    "enable" : "false",
+    "multicast" : "224.0.0.1",
+    "port" : "30491",
+    "protocol" : "udp",
+    "initial_delay_min" : "10",
+    "initial_delay_max" : "100",
+    "repetitions_base_delay" : "200",
+    "repetitions_max" : "3",
+    "ttl" : "3",
+    "cyclic_offer_delay" : "2000",
+    "request_response_delay" : "1500"
+   },
+   "service-security" :
+   {
+     "certificates-path" : "../../crypto/generated/certificates",
+     "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+     "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+     "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+   },
+   "configuration-security" :
+   {
+     "signature-algorithm" : "rsa2048-sha256",
+     "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+     "signature" : "7c8a0767f4eb1af46d88f94aa6b8247a528fe27fd18505fe5eb02de9a3c2c8a46d4ea2cbb4025498d464516a1dc3d2058451688289fa85f8bfe96218e2a58f52ca93e8a598594242a771b089a4ff786725ae0b1164cf23cab8447aedb74a61035af6a29fdee8a72bf2766c83fc83de106c1a6c258e0bc0e9ec0cd9759e139253703313fd17f1d03de23d5235427ec215084264c3e8b53c66e80a31c94de94d4df425ca680c1bda9ae2c902ab7a3baa43bbef7f3ba2d2713ac2a3eb17d3a3f36052cae031fe2a66e9409d44b11d5db2c102ccbd1a931a8d3fb5fe1c2671f4e1fd9164677e5fd1a436fa385a7ac487cb2801868a11d8ffa026ac3b4b1db6817b94"
+   }
+}

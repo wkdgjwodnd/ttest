@@ -1,0 +1,89 @@
+{
+    "unicast":"10.0.1.204",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"subscribe_notify_test_service_four",
+            "id":"0x4444"
+        },
+        {
+            "name":"subscribe_notify_test_service_five",
+            "id":"0x5555"
+        },
+        {
+            "name":"subscribe_notify_test_service_six",
+            "id":"0x6666"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x4444",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x5555",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x6666",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        }
+    ],
+    "routing":"subscribe_notify_test_service_four",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "3",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "ae751cbb1d4dd236429cae2e20f6722a19856340eb3224d5a822c380475021037541ee6811e2920847b5fb94dda1e08ee5d99ff8c0704cec35a619b9f11ab63687f0a7f0bf7f93f95e3ba797461704777e1eca17c38c02e98456da0ee7b49fbbe211ac205c0cd56d7146730fee8c601a1c22cdf9fb52f9afc6950ff17313861488c1d331d38247755f5d1b42219a3192dfb27f1b6aa2489aad9adea54eefad7bf9f9eaf004f425994ee4a3968896647c44b2a52fec462a80cb06d75cab0276264ec03bbf86ff3e71361399b561e71470d37219710075dc81517f59c50826c29ad75c34cdb669ceda63e681bf5e58885d108a3d7d6862da14b7bd8e161fbf8c81"
+    }
+}

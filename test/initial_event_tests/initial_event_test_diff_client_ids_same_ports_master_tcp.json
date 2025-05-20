@@ -1,0 +1,178 @@
+{
+    "unicast":"192.168.31.132",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"initial_event_test_service_one",
+            "id":"0x1111"
+        },
+        {
+            "name":"initial_event_test_service_two",
+            "id":"0x2222"
+        },
+        {
+            "name":"initial_event_test_service_three",
+            "id":"0x3333"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1111",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            },
+            "events" : 
+            [
+                {
+                    "event" : "0x1111",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x1112",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x1113",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x1114",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x1115",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                }
+            ]
+        },
+        {
+            "service":"0x2222",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            },
+            "events" : 
+            [
+                {
+                    "event" : "0x2222",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x2223",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x2224",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x2225",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x2226",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                }
+            ]
+        },
+        {
+            "service":"0x3333",
+            "instance":"0x0001",
+            "unreliable":"30000",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            },
+            "events" : 
+            [
+                {
+                    "event" : "0x3333",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x3334",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x3335",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x3336",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                },
+                {
+                    "event" : "0x3337",
+                    "is_field" : "true",
+                    "is_reliable" : "true"
+                }
+            ]
+        },
+        {
+            "service":"0x8888",
+            "instance":"0x0001",
+            "unreliable":"8888"
+        }
+    ],
+    "routing":"initial_event_test_service_one",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "3",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "b9bd37286b1e518a7ea45887674ab873f04c9f8965cf307c0a66c6470227e02ec82a4320243d4ac9f841b2a6c5a2d8e6b85bfb8bf6ef16cad9d442507222aa7179be334d667dc5a972b2392597c45a9083a6e912ba3ac32d739d01fff6ca6797181eaf4e0ad2d49a3c8e8e6292b7b79f9a7b0e54cef319f34de5a13055729a89f1af377823abd0fad77aecd59bb55361d5e5d89db6e65c64ed35ba9603fb67f186c6818cb240c07f46ece71b4769814226a30fea03ea5f73c82daf0c3536b5379e75fe211bb42114dc7d76d02c438355471df70afed87175e78bc8bd8b1833a9242df75523d48fb1adb6b7613402e8ab6ddaa727a4a9775cf74ac63d4dea8abc"
+    }
+}

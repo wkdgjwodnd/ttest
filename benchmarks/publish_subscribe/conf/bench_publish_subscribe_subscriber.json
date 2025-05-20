@@ -1,0 +1,51 @@
+{
+   "unicast" : "10.0.1.185",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "dlt" : "false"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "bench_publish_subscribe_subscriber",
+         "id" : "0x2002"
+      }
+   ],
+
+   "routing" : "bench_publish_subscribe_subscriber",
+   "service-discovery" : 
+   {
+      "enable" : "true",
+      "multicast" : "224.0.0.1",
+      "port" : "30490",
+      "protocol" : "udp"
+   },
+
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8",
+      "default-algorithms" :
+      [
+         {
+            "security-level" : "authentication",
+            "security-algorithm" : "chacha20-poly1305-256"
+         },
+         {
+            "security-level" : "confidentiality",
+            "security-algorithm" : "chacha20-poly1305-256"
+         }
+      ]
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "b3391dbde05e5e6fe3fd4bb4515c1fa81d823cb7f3be65826ebc41efc818492c973732772dc3752b30a85ff26e6015428eda177471d9721a059479098071fcecf0af163b524f57bda1d658b8dafd44b5db802e8f6ad0574185d9d5c9a29557e11000dacc54befb303c7d09e3a75942d0796772021692b330e54e3e0f23f438090e7b6cc465d25e48638edcf99f53092be7c99dfb64ee655a53eb2845dd473d4dad3b2eba615f9c3d8eddc34500cfe5d49ff2c54a45180d27cf2611c0fd658bdb0a5c24c83851a070fa73984f7ad9d072955fdf0bb3f15f365970288289356f7a72188dfcca4b0bdd8a886dbb891fcee2b89f8ac21a4bfc915b8ec5015e1a4b8a"
+   }
+}

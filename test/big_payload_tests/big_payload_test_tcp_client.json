@@ -1,0 +1,56 @@
+{
+    "unicast":"192.168.31.132",
+    "netmask":"255.255.255.0",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"true",
+            "path":"/var/log/vsomeip.log"
+        },
+        "dlt":"true"
+    },
+    "applications":
+    [
+        {
+            "name":"big_payload_test_client",
+            "id":"0x1343"
+        }
+    ],
+    "payload-sizes":
+    [
+        {
+            "unicast":"10.0.1.204",
+            "ports":
+            [
+                {
+                    "port":"30509",
+                    "max-payload-size":"614400"
+                }
+            ]
+        }
+    ],
+    "routing":"big_payload_test_client",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.244.224.245",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "5a681c205fc6eb27d4113683dfe4f819e7272fbda954aa63d7753e881985feb0b3e7f75b9baf7838b74af7c2812a993746a876800c8470ca38bad46de0fec8337fcfd0ca4b411fcba29d4bc0e67b94f63b6de41da0d77aadd9dca0bcaa2ca0663bd22eb2eb5d9e24db4febabb43d2e030c85928d48dc886780d92297e635a1d6b4dedf161d4fa2d1e3218122a8574fc653649adff4e95e8afb19695c4d16839edbfaa451844683f80d53743a9a7c318ee0210766191c460342ac770646a559b6e65a8ce3466ea75aebc10d99b37fffdf316cdcff8e0f85365d72de1a909f1b63af2ad488b1c71f10dd9d22bbd915e88b2378fc1dc8cd1979251300a110b68589"
+    }
+}

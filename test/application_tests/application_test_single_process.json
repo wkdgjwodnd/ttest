@@ -1,0 +1,27 @@
+{
+    "unicast":"127.0.0.1",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/someip.log"
+        },
+        "dlt":"false"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "9f91b8f74e376c56d271e0c22014549a84cab22e96d5c859d226e77054b27947486dc8c9e8330260bb0500b3e5b846da9fbb27242ea0646c20dcf8fea987e411eaf231ffddd8bfe0dc3795d2deb5548f72d5b0a33dfdcded998634c74fc00c80f8f187e73bf7ee533d08ab60a5f0d1651b5af8e888ce8daff0edd78e141c5ad08f54ff8cdfcc21e920d5734e43818bb5e83354349ad261ef6c08d571ba689dc353cb110a97b5f935ed5654f802506c42935e577698a73ac950a7ecc99084718a17c79fa708aacec8f0a07d69d34484a3ae04c78893cd5249c5085e27d9dd8e84e050b374ee1f12cba103ff2318e3ff3766482e70b01e952f8bae501e331f1c5b"
+    }
+}

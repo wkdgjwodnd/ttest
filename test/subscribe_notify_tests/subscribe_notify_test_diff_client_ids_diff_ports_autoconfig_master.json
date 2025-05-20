@@ -1,0 +1,73 @@
+{
+    "unicast":"192.168.31.132",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "services":
+    [
+        {
+            "service":"0x1111",
+            "instance":"0x0001",
+            "unreliable":"30001",
+            "reliable":
+            {
+                "port":"40001",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x2222",
+            "instance":"0x0001",
+            "unreliable":"30002",
+            "reliable":
+            {
+                "port":"40002",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x3333",
+            "instance":"0x0001",
+            "unreliable":"30003",
+            "reliable":
+            {
+                "port":"40003",
+                "enable-magic-cookies":"false"
+            }
+        }
+    ],
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "3",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "969988cc3c75173e70aa673ba47e4399c5a6874382dfd9c24578566ff8a3d7325ccfa4e8a21e1bc5808cfc4305acb23d193f13744e1333905ae090a9b8a6dd7d3d22ff019bbb3662e1672d6e3db132445cd6fbdcdac2722da12d73afcd06ad9eb8461739c97a897e3a647e58e7de0f3eb9d31c6ee70111f776e7dc7de4292ba7eb8fbf3b6647c32a11d9695c01a8e125ecdd3949552f882b438f33ac5b54c0092062738e7a794abf6276b5be672306081e850ead3f642d4ba0932699baa82cdfd27626c4cab22e3cf7d40dfc148e7e0119c50b6f04eb96c3a5caec811d533dc766a0d8869a1acf67a20bbbb94ed9b864050da348180611b5d88c1a299f2b50fa"
+    }
+}

@@ -1,0 +1,61 @@
+{
+   "unicast" : "127.0.0.1",
+   "netmask" : "255.255.255.0",
+   "logging" : 
+   {
+      "level" : "warning",
+      "console" : "true",
+      "file" : 
+      {
+         "enable" : "true",
+         "path" : "/var/log/vsomeip.log"
+      },
+
+      "dlt" : "true"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "restart_routing_test_client1",
+         "id" : "0x1343"
+      },
+      {
+         "name" : "restart_routing_test_client2",
+         "id" : "0x1344"
+      },
+      {
+         "name" : "restart_routing_test_client3",
+         "id" : "0x1345"
+      },
+      {
+         "name" : "restart_routing_test_client4",
+         "id" : "0x1346"
+      }       
+   ],
+   "services" : 
+   [ 
+   ],
+
+   "routing" : "vsomeipd",
+   "service-discovery" : 
+   {
+      "enable" : "false",
+      "multicast" : "224.0.0.1",
+      "port" : "30491",
+      "protocol" : "udp"
+   },
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "00eb6bb5d8cc240ecedd56cb4808f5e3c543fe5d5e4fb58afb426c431a9af047c5752e216c9ae86fd9fe59ac49934eaf0687cd15fb4c677a7a7929fb23940d32d8052c2f2867020d17e606b5fd0b4a36693b79a68bf374603593ebb49f0fd2001f93af82c8fc0a9cc03cb8920a201688635541fe666f0f924eeb338223bea8b994bf091550d9a5ad2a2a6848a6e3e3434a350fd4a6c3f67a4aaeb6dbdc256ad9ebd81122b40093696d34a3ec74d4b30b0e29324a097049bd8b2bb655d867ed9d5307410b384e55a61fb33b9c13a69bbc09f9bd202fe59886769e09191721a0898d486c346a41697967a952256bf5b26452c3cda4a179cf0a79b2a96e24203e50"
+   }
+}

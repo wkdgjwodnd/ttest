@@ -1,0 +1,57 @@
+{
+    "unicast":"192.168.31.132",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications" :
+    [
+        {
+            "name" : "malicious_data_test_service",
+            "id" : "0x4289",
+            "max_dispatch_time" : "1000"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x3345",
+            "instance":"0x0001",
+            "unreliable":"30001",
+            "reliable":
+            {
+                "port":"40001",
+                "enable-magic-cookies":"false"
+            }
+        }
+    ],
+    "routing":"vsomeipd",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.24.1",
+        "port":"30490",
+        "protocol":"udp",
+        "cyclic_offer_delay" : "1000"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "00433c9a8a758a8210bc0e3c083e464bce504e19d642ebaac01a4cf94f1cc87250c12e68480dc61849177e2ef335fa11fccf134064375e56e4b3d7c99eb2f43842bc2c9f42b43cfc1bdc4ea81ec4310fcb6b0a06eea1b63e94735552b25ad4e2a23bb5381a1c4e150a8f32f9b20abfc42f17c103da513b492072457753925f9ae26a115f32a85a5af604b1e3282ee03c28acfb9a82b6c1304ef5fc2b73aa9d7c257e4b389fb76d909cb6c39abbcd1a61b79b2b333df67a1a53f904cdcbb789f20a62e7e6ffe56623fade064c3ab00102ccc82e4d4e5c03a9adad2f53b872868cdf90cffca6f03a8892a18be754317be575dc3849f535c32a16987b10fc984df2"
+    }
+}

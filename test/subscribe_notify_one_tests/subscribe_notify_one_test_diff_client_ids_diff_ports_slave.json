@@ -1,0 +1,117 @@
+{
+    "unicast":"10.0.1.204",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"subscribe_notify_one_test_service_four",
+            "id":"0x4444"
+        },
+        {
+            "name":"subscribe_notify_one_test_service_five",
+            "id":"0x5555"
+        },
+        {
+            "name":"subscribe_notify_one_test_service_six",
+            "id":"0x6666"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x4444",
+            "instance":"0x0001",
+            "unreliable":"30004",
+            "reliable":
+            {
+                "port":"40004",
+                "enable-magic-cookies":"false"
+            },
+            "events" :
+            [
+                {
+                    "event" : "0x4444",
+                    "is_field" : "false",
+                    "is_reliable" : "true"
+                }
+            ]
+        },
+        {
+            "service":"0x5555",
+            "instance":"0x0001",
+            "unreliable":"30005",
+            "reliable":
+            {
+                "port":"40005",
+                "enable-magic-cookies":"false"
+            },
+            "events" :
+            [
+                {
+                    "event" : "0x5555",
+                    "is_field" : "false",
+                    "is_reliable" : "true"
+                }
+            ]
+        },
+        {
+            "service":"0x6666",
+            "instance":"0x0001",
+            "unreliable":"30006",
+            "reliable":
+            {
+                "port":"40006",
+                "enable-magic-cookies":"false"
+            },
+            "events" :
+            [
+                {
+                    "event" : "0x6666",
+                    "is_field" : "false",
+                    "is_reliable" : "true"
+                }
+            ]
+        }
+    ],
+    "routing":"subscribe_notify_one_test_service_four",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "3",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "supports_selective_broadcasts" :
+    {
+        "address" : "192.168.31.132"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "39a6a87357cca56606427a234c6f35dc30ba0e03a134e38229b73f40278858691d47d8be4c34a1b028418459fc9d98f4458386f5bfe1083326f0e5c143b48051fd411903a82fb66325268e30bed8c1380abf430faee9109caadb7b74192514999e78fd2ea758bf1f61f3c740b4299ea425b35918dbf3870f0f77915bf3097be50e8a7e460bb2e2a514d0592b03afe5f1a2724b9998e04607cf02c816bcfbccc6bef85cba4bd419ac4a442ab4483c5f621cf6c0ea83a888bd4d882f7b85464649eae742017efe3c1be0502a835ed82ea26800fddbf1e78531bf888f12322ac662da6cdfa906f9ec3f48457f0ae2dabdb7696884321b8cd31dd7f0bd74ed7ade44"
+    }
+}

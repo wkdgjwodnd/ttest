@@ -1,0 +1,59 @@
+{
+   "unicast" : "192.168.31.132",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "file" : 
+      {
+         "enable" : "false",
+         "path" : "/tmp/vsomeip.log"
+      },
+
+      "dlt" : "false"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "external_local_payload_test_service",
+         "id" : "0x1277"
+      }
+   ],
+
+   "services" : 
+   [
+      {
+         "service" : "0x1234",
+         "instance" : "0x5678",
+         "unreliable" : "30509",
+         "reliable" : 
+         {
+            "port" : "30510",
+            "enable-magic-cookies" : "false"
+         }
+      }
+   ],
+
+   "routing" : "external_local_payload_test_service",
+   "service-discovery" : 
+   {
+      "enable" : "false",
+      "multicast" : "224.0.0.1",
+      "port" : "30490",
+      "protocol" : "udp"
+   },
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "c1f2fac89a15699046c18c5f49fd412c9cd80105528f1316f2db412f8b79426d6987f467de43a07d7ed2c95c10cc014c19bb0b0d43cf7255e736d61a5a16b3164115a8211d1cf19b65d7177537df5e01952e5f83b8cb8e036c6ad77d1411a0217551d33fb9f7a25239fce939387a9c67c19a90966c80f2473a2b4478c6cd05624babd66511132b0130517ff8023b457b1a7025f14011cb6a265e06d2fd71bfd8a2b5eb8bdef1bc2b8a952d2848b207e447b09b5a1e93f011885946442f8acbe566eadea5aba12670abffe82697bb3d7d2fd3d3852eeae2c31f3cd6abc2f2f53228003a2b6972a537ccd43314f8dfb2647063178abba0bce47ac44720b660fc55"
+   }
+}

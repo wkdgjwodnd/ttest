@@ -1,0 +1,52 @@
+{
+    "unicast" : "10.0.1.204",
+    "logging" :
+    { 
+        "level" : "debug",
+        "console" : "true",
+        "file" : { "enable" : "false", "path" : "/tmp/vsomeip.log" },
+        "dlt" : "false"
+    },
+    "applications" : 
+    [
+        {
+            "name" : "subscribe_notify_test_service",
+            "id" : "0x8888"
+        }
+    ],
+    "services" :
+    [
+        {
+            "service" : "0xcafe",
+            "instance" : "0x1",
+            "reliable" : { "port":"30509", "enable-magic-cookies":"false" }
+        }
+    ],
+    "routing" : "vsomeipd",
+    "service-discovery" :
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "0",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "63b0f3efa22509b4a273caeda85042055203f2a79090a15c4e3aef3c7058d2b0c946f5ff0bb8887d5d8025937464603c61f868015f017cd81ae4af891598cc35223717f7c5cd233a34a3bd1181871524df3ed72abae7104a18e51ad709704090fc2c7b8c64b01137d9dde580ab77c616bf6913d0e12f2d645ccad1ed667be1815ff8d111a125aa284224d1ac875f6177d23eaf75e948a49712fcdd5265683b1285d882e395a522e82f351f18cd9b76796961370624fe1adc1330656d6607bbed5661f23b49f037776d84600d2451b6d9aad7bbdfbc6bb881f3b4a563fafdf819ec0c2f04e4b74c8bf8e4aee1fa34586bcfbac2d7b4958451972cb360ac5d0e1f"
+    }
+}

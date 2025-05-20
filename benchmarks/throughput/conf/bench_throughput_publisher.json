@@ -1,0 +1,98 @@
+{
+   "unicast" : "10.0.1.204",
+   "logging" :
+   {
+      "level" : "debug",
+      "console" : "true",
+      "dlt" : "false"
+   },
+
+   "applications" :
+   [
+      {
+         "name" : "bench_throughput_publisher",
+         "id" : "0x2001"
+      }
+   ],
+
+   "services" :
+   [
+      {
+         "service" : "0x1234",
+         "instance" : "0x5678",
+         "unreliable" : "30509",
+         "reliable" :
+         {
+            "port" : "30510",
+            "enable-magic-cookies" : "false"
+         },
+         "events" :
+         [
+            {
+                "event" : "0x8771",
+                "is_field" : "false"
+            },
+            {
+                "event" : "0x8772",
+                "is_field" : "false",
+                "is_reliable" : "true"
+            },
+            {
+                "event" : "0x8779",
+                "is_field" : "false"
+            }
+         ],
+         "eventgroups" :
+         [
+            {
+                "eventgroup" : "0x4465",
+                "events" : [ "0x8771", "0x8779" ],
+                "multicast" :
+                {
+                    "address" : "224.225.226.233",
+                    "port" : "32344"
+                },
+                "threshold" : "1"
+            },
+            {
+                "eventgroup" : "0x4466",
+                "events" : [ "0x8772" ]
+            }
+         ]
+      }
+   ],
+
+   "routing" : "bench_throughput_publisher",
+   "service-discovery" :
+   {
+      "enable" : "true",
+      "multicast" : "224.0.0.1",
+      "port" : "30490",
+      "protocol" : "udp"
+   },
+
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8",
+      "default-algorithms" :
+      [
+         {
+            "security-level" : "authentication",
+            "security-algorithm" : "chacha20-poly1305-256"
+         },
+         {
+            "security-level" : "confidentiality",
+            "security-algorithm" : "chacha20-poly1305-256"
+         }
+      ]
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "15149c4e77966ab921b73091483c57cd259eca1dcf8f910225564f275b7d51ce9418d925446c512b3e4767ee49d8a5fac9f40624a8bc79e173727fcd806482cdb6a1234ce8f707c207e392beadf4f2abdf6bec47824cf5c34c7436e2c90d3160c1a0fe77f47f419989035b64db74eb41d219ce3ea0de1ae332a481b2e349f39653f49d2acdb2e8e86751fa4668a1c0065bb0c3303424a90508fe3a595091fc7eed374f3601e0c0b69fbc2a2ff4481162a8079ad68f590de1786e402b6eaa8cb23a86f77e19daaf13db95c9a19312d5c07894a1660bef394077c51ad8d71cea4704e20e58cf8c8b7e53e193e13f192ff21405e78e3b362290d6535863e2927276"
+   }
+}

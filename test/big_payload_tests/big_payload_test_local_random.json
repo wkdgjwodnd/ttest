@@ -1,0 +1,57 @@
+{
+    "unicast":"127.0.0.1",
+    "logging":
+    {
+        "level":"debug",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"big_payload_test_service",
+            "id":"0x1277",
+            "max_dispatch_time" : "5000"
+        },
+        {
+            "name":"big_payload_test_client",
+            "id":"0x1344",
+            "max_dispatch_time" : "5000"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1234",
+            "instance":"0x5678"
+        }
+    ],
+    "buffer-shrink-threshold" : "2",
+    "routing":"big_payload_test_service",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.244.224.245",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "26cc8c7dec597b20317c25eec868c86dff25ae1dec8383135923200f4e7bac2f81beddd378d4f2f98e818aa008e6a9da7235550ccebe0cab846ebbd6bf4fb59a8872274b9ed1ca3225ff8a7e69805bef3b432cd9f735288236fcd68e41c89b64c8cce349f94cd0e399550736f9c48772389bc5b31972be6d1c103985850987c61a54bccdb617ced49cd5b7aedd6b78140807226bec0729b15cfbe1250d3503692fdd5a26c420dc69b9dd4a5627970b8870d69d3c57e1727a3b7a5dacce4dce0041df61613a2fc61e8b702557d4a293c0abcc38aeb5017138d8a3918f017372aa1a80f26300211f4a2861f33225bfee0b135cd7a90204693575d6681f71b040d8"
+    }
+}
+

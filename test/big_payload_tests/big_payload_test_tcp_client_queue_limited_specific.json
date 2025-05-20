@@ -1,0 +1,56 @@
+{
+    "unicast":"192.168.31.132",
+    "netmask":"255.255.255.0",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"true",
+            "path":"/var/log/vsomeip.log"
+        },
+        "dlt":"true"
+    },
+    "applications":
+    [
+        {
+            "name":"big_payload_test_client",
+            "id":"0x1343"
+        }
+    ],
+    "endpoint-queue-limits" :
+    [
+        {
+            "unicast":"10.0.1.204",
+            "ports":
+            [
+                {
+                    "port":"30509",
+                    "queue-size-limit":"614416"
+                }
+            ]
+        }
+    ],
+    "routing":"big_payload_test_client",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.244.224.245",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "e42274364fed62605041c20d13c9dba02b9e9dcb273235bd669294295621e97136e929fc1fb40b7470141bc51b3cf92c99bb7cbafe892100608a0730016eeb31ce0c6b21eb39f457a58eaf4b5bb5f0dadb0da285ac0039601ef24c758ece6a83795e687b8ef7bdc31ed7bdec183074619669b7077d30d7d972a7b3f03437a2faed0c21213d28e52c5fa4a95c93f48d9d5105b586f94504f01f4170a910ffd7504a2a94234dfa78109c53a91decd251e0ac727d9b0cfe49260e2cef39e73b3ea0537f48dd7429884a9b0250a3a87ddbdf1eb34b2ca717cb68fbe97884a8e1a2f1d4fd1341a6827a2960bc1f8c34f1152545c89680bd17064626b2e10ece87bb87"
+    }
+}

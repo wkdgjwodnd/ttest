@@ -1,0 +1,83 @@
+{
+    "unicast":"192.168.31.132",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"client_id_test_service_one",
+            "id":"0x1111"
+        },
+        {
+            "name":"client_id_test_service_two",
+            "id":"0x2222"
+        },
+        {
+            "name":"client_id_test_service_three",
+            "id":"0x3333"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1000",
+            "instance":"0x0001",
+            "unreliable":"30001",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x2000",
+            "instance":"0x0001",
+            "unreliable":"30002",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x3000",
+            "instance":"0x0001",
+            "unreliable":"30003",
+            "reliable":
+            {
+                "port":"40000",
+                "enable-magic-cookies":"false"
+            }
+        }
+    ],
+    "routing":"client_id_test_service_one",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "567ea25945d3467179d80c81aa3132a281c0aae53d6101f24c0b20054bb01c9258fee16bf0d4001fde27b79ac2c1715fa24478d81c78764b99d9642a894e59add79c7974d10d9ebe901ddc03910a045cb259ac3ffbc6f577830d6a0e88f5cf2438d95ba85f4b7075d0d8b6f4a971d134493f39cfc00822e7ebc2d3dad0d7d0f016f309985039a37bb71b3d779da768561c12ed3974e388efffcdcbd2e68adcab833efef596784e95a0cb9af07ce5bdc0ba27fd2e05be2b6a3213281f055b78a7eabfa77615ca81f7b3d0449178fef1cefcf5cc88c4b6d74d85ff62602f48db98c5a708042e453d0f80a3125b4fa18b9cd088dcee2389e7438218adc27a6b7c13"
+    }
+}

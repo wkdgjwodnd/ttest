@@ -1,0 +1,66 @@
+{
+   "unicast" : "10.0.1.185",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "dlt" : "true"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "bench_request_response_client_external",
+         "id" : "0x1003"
+      }
+   ],
+
+   "services" :
+   [
+      {
+         "service" : "0x1234",
+         "instance" : "0x5678",
+         "unicast" : "10.0.1.204",
+         "unreliable" : "30509",
+         "reliable" :
+         {
+            "port" : "30510",
+            "enable-magic-cookies" : "false"
+         }
+      }
+   ],
+
+   "routing" : "bench_request_response_client_external",
+   "service-discovery" :
+   {
+      "enable" : "false",
+      "multicast" : "224.0.0.1",
+      "port" : "30490",
+      "protocol" : "udp"
+   },
+
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8",
+      "default-algorithms" :
+      [
+         {
+            "security-level" : "authentication",
+            "security-algorithm" : "chacha20-poly1305-256"
+         },
+         {
+            "security-level" : "confidentiality",
+            "security-algorithm" : "chacha20-poly1305-256"
+         }
+      ]
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "6ca1fd17d9a42860106db9bfb51a78291494dfba07f35c4941968699d236d54eec02d150fc026d503c9e4efaac83f75ce80e02fc41ebc04a47500382fe173b1cafbaf7d882380a16e3b9239a53464436868b6038c055ce623a317cf941e3966207af9c230f8ebf4242798117ee28702e75d249f6d73a420a9d539d61da72b350cde2610fce7723067a8800d0b21a81fbafc1e6a12376977da4344d2508b820d3d6b61fb0c598a952fd8603a654880a5c461993d41a0a223819502fb7f04a86a59ab26ac2948ea3bd7ef8b7deaabdb72f7a62e8c9e9673da94cdd1cd9332135772fc0c070b57b64816e047d5e06f0165eb4eb2e265cd5d43d521cc766193a5df8"
+   }
+}

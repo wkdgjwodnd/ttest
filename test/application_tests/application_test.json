@@ -1,0 +1,51 @@
+{
+    "unicast":"192.168.31.132",
+    "logging":
+    {
+        "level":"warning",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/someip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"application_test",
+            "id":"0x7788",
+            "num_dispatchers":"5"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1234",
+            "instance":"0x5678",
+            "reliable":"30503"
+        }
+    ],
+    "routing":"application_test",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "24c46482685d1de2205d2d3ef2cd88d64ad24bb4dc205758b7f399ef9c05b768fbca7ede20353d941e16e3c5d36eecd080442572a53a101a45ce93f11fc08dc9c62cf47bd6b4e0d37fa6b8e46e639e275772a98a59d1975cdb2eabe3d77ce4011e26b5d3790b9bf92deed53c4f7a038523bfd3a4191cf380a4c4b210da775be9d290161fba79c48e417213a0065daac096e3a4c70be74269172248f63226e8e2af08f9b892a439ed1ab07e810fe5ecf2932764a6fc3b513797eda778b82ac0f8fd9e58066cb1220d520fbf9cf2b1f3dba22eb413c5309cd651cc92d6f3416f02ea078893e44ea468037a26b0072081b53c233d6f417d2732e2ce2880326ffd85"
+    }
+}

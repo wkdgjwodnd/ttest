@@ -1,0 +1,98 @@
+{
+    "unicast":"10.0.1.204",
+    "netmask":"255.255.255.0",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"true",
+            "path":"/var/log/vsomeip.log"
+        },
+        "dlt":"true"
+    },
+    "applications":
+    [
+        {
+            "name":"magic_cookies_test_client",
+            "id":"0x1343"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1234",
+            "instance":"0x5678",
+            "unicast":"192.168.31.132",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"true"
+            },
+            "events":
+            [
+                {
+                    "event":"0x0777",
+                    "is_field":"true"
+                },
+                {
+                    "event":"0x0778",
+                    "is_field":"false"
+                },
+                {
+                    "event":"0x0779",
+                    "is_field":"true"
+                }
+            ],
+            "eventgroups":
+            [
+                {
+                    "eventgroup":"0x4455",
+                    "events":
+                    [
+                        "0x777",
+                        "0x778"
+                    ]
+                },
+                {
+                    "eventgroup":"0x4465",
+                    "events":
+                    [
+                        "0x778",
+                        "0x779"
+                    ]
+                },
+                {
+                    "eventgroup":"0x4555",
+                    "events":
+                    [
+                        "0x777",
+                        "0x779"
+                    ]
+                }
+            ]
+        }
+    ],
+    "routing":"magic_cookies_test_client",
+    "service-discovery":
+    {
+        "enable":"false",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "85bfdb93e672e7357d1d01169800d89c57f6d69b8efefc40e2a708b2aba2fe85941e6ada401fd337ce80cfabf600db8a07a1ef52bff9fb0aafbde84f31c6c7cfb77d9570966219a3d37a2d20eaa889034386b1c2795bf937b44ddd38887de0dff41cb277564615e3d7ea8340552b6ec7a9b7ebf7f3885be60897d7d35483bd7e20624cdcf698b4e9df4248b14127306287243663211e8d6f501668f91673c505326c182231adab7b05de0de8f788084abc34cc5b00daf49d43e9f46c6ac5119ca7455dbd650664225f6d6f75e71e3d323d746a1392ffd0bd2c1214bd9a0aff41abc848cd67ae1ba67bd1b75e5658a7df6403d29f668efbb6b96a62cd9f1b5453"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "unicast":"127.0.0.1",
+    "logging":
+    {
+        "level":"info",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "routing":"vsomeipd",
+    "service-discovery":
+    {
+        "enable":"false"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "537e24233e40c5ce3e203bef1b1e70729b8f7fb228406d0cc65ece2c6ad78fb8673e8b7c6357886c8b7e66d7b9f28f0bf18e9f61b2683a036a0f80087f6265c8936f261d6c46a9b9f44a3ef01c42d1db69b6512f8a7c8207173dac68de4f73145c1d976a626cf006285cb1387383e943b4d2c56f020835eb034cd9aeff66a460554e96a59975444b595ec3053e87eef31bf5125c15d7bacd5efa26187c436dbcca2600d685e752978455ecdae7c6d15b431c3cf60c62bc6aa25e508b74ca4dae175e79a1a55f0165de9825d475970787d34d9b4b0e6058311f0fdfadb822aaf7de0260cbbf78ce773561ab58bb1403e49617abac6ff2b8b79be9ad9efd5a0eaf"
+    }
+}
+

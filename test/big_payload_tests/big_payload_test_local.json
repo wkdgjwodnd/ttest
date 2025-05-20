@@ -1,0 +1,67 @@
+{
+    "unicast":"127.0.0.1",
+    "logging":
+    {
+        "level":"debug",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"big_payload_test_service",
+            "id":"0x1277"
+        },
+        {
+            "name":"big_payload_test_client",
+            "id":"0x1344"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1234",
+            "instance":"0x5678"
+        }
+    ],
+    "payload-sizes":
+    [
+        {
+            "unicast":"127.0.0.1",
+            "ports":
+            [
+                {
+                    "port":"30509",
+                    "max-payload-size":"614400"
+                }
+            ]
+        }
+    ],
+    "routing":"big_payload_test_service",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.244.224.245",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "4995659064586c13478cde0e66d50329b441f3db732116f2542e7608a0609facc365d17942986d71afb7646a7a6547ba5c5074bf73c27e1ff5f18f40859f9b69aaea75dc54b5511a20446e1ad27f52ef6afd1421c51fa3acdda9a9317870a48a9dc25695ef6b13891efe13313b3e493f6e01797c9fa63014515b49cd4f04bd2de16785898ca9b87bc0ad28ce470a22e58f7d89fab89df629d6ee5e8a4649fbeebe9bd8769aef10d4b21b4fc02ed0a229216690fcd453a3e0782437b43aadc83b2c235864815186e2859dcea2cd1bc9a9578e380b2cfec75cfda042e09bdb4867e196bf7b0da48601564f2d84199f4800d0ca52cb437a14cb26698d9e16bd4ffd"
+    }
+}
+

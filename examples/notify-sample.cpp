@@ -146,11 +146,15 @@ public:
                 offer();
             else
                 stop_offer();
+            /* if (is_offer)
+                offer();
+            else
+                stop_offer();
 
             for (int i = 0; i < 10 && running_; i++)
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-            is_offer = !is_offer;
+            is_offer = !is_offer;*/
         }
     }
 

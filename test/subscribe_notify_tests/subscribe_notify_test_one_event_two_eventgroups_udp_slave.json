@@ -1,0 +1,52 @@
+{
+    "unicast" : "10.0.1.204",
+    "logging" :
+    { 
+        "level" : "debug",
+        "console" : "true",
+        "file" : { "enable" : "false", "path" : "/tmp/vsomeip.log" },
+        "dlt" : "false"
+    },
+    "applications" : 
+    [
+        {
+            "name" : "subscribe_notify_test_service",
+            "id" : "0x8888"
+        }
+    ],
+    "services" :
+    [
+        {
+            "service" : "0xcafe",
+            "instance" : "0x1",
+            "unreliable" : "30509"
+        }
+    ],
+    "routing" : "vsomeipd",
+    "service-discovery" :
+    {
+        "enable":"true",
+        "multicast":"224.0.0.1",
+        "port":"30490",
+        "protocol":"udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "10",
+        "repetitions_base_delay" : "30",
+        "repetitions_max" : "0",
+        "cyclic_offer_delay" : "1000",
+        "ttl" : "3"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "3be7c9c85e39a3cd41eaf7bf9accd4f274bf3ad0e037dc3194534ca8a8b3cb442b327dc58c63de331fda2e281113a04bd8402771091f954f007ebd42738224ddb296b52013966b77d790d7a3b5f08cc6fd2de7484d971343e44b8431fdf202c8ae38cae609f854e4c83f6365395128beeadbd6a975304f6bbe48d7578d9ecf0f7faf95e973e1d1f7d22477bb9b1d909125372a4f97fed47585c77ee3991b52b01defee6b946d67446b1b057d32a830525c2e8e763d680bedb253401f598b4a634598aa7b342d4604df91a7df00fb40942ab4d082fcc2ec40822469f844051fb4fed81a3c95c32f51ee77e72d0b48c267686821f4933505eb354374f40ef4b9cf"
+    }
+}

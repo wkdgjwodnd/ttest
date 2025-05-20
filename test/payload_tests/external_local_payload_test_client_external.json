@@ -1,0 +1,61 @@
+{
+   "unicast" : "10.0.1.204",
+   "netmask" : "255.255.255.0",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "file" : 
+      {
+         "enable" : "true",
+         "path" : "/var/log/vsomeip.log"
+      },
+
+      "dlt" : "true"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "external_local_payload_test_client_external",
+         "id" : "0x1343"
+      }
+   ],
+
+    "services" : 
+    [
+       {
+          "service" : "0x1234",
+          "instance" : "0x5678",
+          "unicast" : "192.168.31.132",
+          "unreliable" : "30509",
+          "reliable" : 
+          {
+             "port" : "30510",
+             "enable-magic-cookies" : "false"
+          }
+       }
+   ],
+
+   "routing" : "external_local_payload_test_client_external",
+   "service-discovery" : 
+   {
+      "enable" : "false",
+      "multicast" : "224.0.0.1",
+      "port" : "30491",
+      "protocol" : "udp"
+   },
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "347d221f3ceda45649492c4593f872cc2e7860256df11ff8fd9d3fce9272e7f33eff11ca05b4df055e3f2a46424424dee40a28afeb8fb4010503f97b760e25ecb1f49f78330d4abb0ff4ba2913d4e8eecb4486e866e550ad4db9e21b6ae710b27db2112a0b13bba7f82e1b6e6d123664b044cf5bb91208f0db0fd353671f0edb079f06b3f619e3093f1aec3616015e8b2ceccd87ced0618c4339c3af7e57f27ce2480f31fba85e0fb459bc44954efc97636b3ca0da493e52ff5f2aca2f0fca579ad545643778c32e9cf604c00cdf7159ebb598cfeef299f9a4bec11f5d0fdd4c8d9e2415954ea4952cde6f3c33f350f129f7753128c4b89c661465e296fbe23a"
+   }
+}

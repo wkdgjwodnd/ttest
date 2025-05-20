@@ -34,7 +34,7 @@
    "routing" : "external_local_routing_test_service",
    "service-discovery" : 
    {
-      "enable" : "false",
+      "enable" : "true",
       "multicast" : "224.0.0.1",
       "port" : "30490",
       "protocol" : "udp"

@@ -1,0 +1,45 @@
+{
+   "unicast" : "10.0.1.204",
+   "netmask" : "255.255.255.0",
+   "logging" : 
+   {
+      "level" : "debug",
+      "console" : "true",
+      "file" : 
+      {
+         "enable" : "false",
+         "path" : "/var/log/vsomeip.log"
+      },
+
+      "dlt" : "false"
+   },
+
+   "applications" : 
+   [
+      {
+         "name" : "cpu_load_test_client",
+         "id" : "0x2222"
+      }
+   ],
+   "routing" : "cpu_load_test_client",
+   "service-discovery" : 
+   {
+      "enable" : "true",
+      "multicast" : "224.0.0.1",
+      "port" : "30490",
+      "protocol" : "udp"
+   },
+   "service-security" :
+   {
+      "certificates-path" : "../../crypto/generated/certificates",
+      "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+      "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+      "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+   },
+   "configuration-security" :
+   {
+      "signature-algorithm" : "rsa2048-sha256",
+      "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+      "signature" : "c328f398a860d213b7810f1ad2bcc5abe61523cca9d7bea08958e60190de1d2e195eb6cf0708677aecfe948f95098e4e4d5da7a7d159f40e8d7f2bb0fcf63f4a0c08179981417cf85afe5170187fd614f1b0afa642a1d8579e1a08e026d9bcf70f9efbaf9f55e818694e163551e8f91d7d7726cc4be0d278b49eb1514e601f2dfd666cd70216709126dced7630dff2d8815701dc66e93ef4b7ae7f9703af89373d29ea355b2084904ea2e06753f5bb37a2911bbe133401d4677e08e319c7b006b5641cf9e360fda965ffc38a499453ed350231acef805f3eae2123dbf361de21577f543ec0770714d44b792f0dc2687d85f26266a41fc6ed9a3618dd74f3671a"
+   }
+}

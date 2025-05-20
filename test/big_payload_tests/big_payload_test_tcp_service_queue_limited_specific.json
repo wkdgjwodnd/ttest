@@ -1,0 +1,112 @@
+{
+    "unicast":"10.0.1.204",
+    "logging":
+    {
+        "level":"debug",
+        "console":"true",
+        "file":
+        {
+            "enable":"false",
+            "path":"/tmp/vsomeip.log"
+        },
+        "dlt":"false"
+    },
+    "applications":
+    [
+        {
+            "name":"big_payload_test_service",
+            "id":"0x1277"
+        }
+    ],
+    "services":
+    [
+        {
+            "service":"0x1234",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x1235",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x1236",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x1237",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x1238",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        },
+        {
+            "service":"0x1239",
+            "instance":"0x01",
+            "reliable":
+            {
+                "port":"30509",
+                "enable-magic-cookies":"false"
+            }
+        }
+    ],
+    "endpoint-queue-limits" :
+    [
+        {
+            "unicast":"10.0.1.204",
+            "ports":
+            [
+                {
+                    "port":"30509",
+                    "queue-size-limit":"614416"
+                }
+            ]
+        }
+    ],
+    "routing":"big_payload_test_service",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast":"224.244.224.245",
+        "port":"30490",
+        "protocol":"udp"
+    },
+    "service-security" :
+    {
+        "certificates-path" : "../../crypto/generated/certificates",
+        "root-certificate-fingerprint" : "99F628142A5B90587CCDCAC1F71F5C26836FE454B285CDB9FC40B3E62140EABF",
+        "private-key-path" : "../../crypto/generated/keys/confidentiality.key",
+        "certificate-fingerprint" : "ED8E0D6794ECCC2D44691B26D9663A7A460EBCD4BD50646D7A7A77A8AA3B8AA8"
+    },
+    "configuration-security" :
+    {
+        "signature-algorithm" : "rsa2048-sha256",
+        "certificate-fingerprint" : "FF7197BF7B2546D69CED51496DE8C5A7226A251C9FE1C802AF251805EEFC9DDC",
+        "signature" : "157173ed5e56c93ab404ef0ef953325826eaf1cf172022c2f6d41f8608f496c31eb92d12e716ffc0aeaaecc418e5188d2b7fca162f578c2d1358fc42feba278327ffb7a8217c3ed5e9a73c9cf67a85d72f716342c4420b32f14ae950a5281f56694fd57e41e97a86698095a677c7e384a63b483810bc9b8d1b1a05e6810786f65654aaced8a47198f07275f50369b6901c9a667c012ce0ddf5bff44acd0d4367217e23d6bd32cfcf0d86c2978918e9dfd4122fcdb091cbaf757b6e9206ea8fc43edd9385bc32464c5a1b8c6ae9ae797abe9035d34e52c763d1da5c36ea73ed1750cdc0967aca4aa59b556f11c9e5f4b554e10f9ec0d0a5a1024f226d6ca8c453"
+    }
+}
