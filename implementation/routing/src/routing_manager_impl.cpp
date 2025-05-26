@@ -880,7 +880,8 @@ bool routing_manager_impl::send_to(
         return is_sent;
     }
 
-    auto serializer = get_serializer(_message->get_service(), _message->get_instance());
+    auto serializer = get_serializer(_message->get_service(), _message->get_instance(), 10);
+
     if (serializer) {
         std::vector<byte_t> buffer;
         if (serializer->serialize_message(_message.get(), buffer)) {
@@ -1051,9 +1052,11 @@ void routing_manager_impl::notify_one(service_t _service, instance_t _instance,
                             its_event->set_message(_payload->get_data(), _payload->get_length(),
                                                    its_target, _force, _flush);
                         } else {
-                            auto serializer = get_serializer(_service, _instance);
-                            if (serializer) {
-                                its_event->set_payload(serializer, _payload, its_target, _force, _flush);
+                            auto serializer1 = get_serializer(_service, _instance, 10);
+                            auto serializer2 = get_serializer(_service, _instance, 20);
+                            if (serializer1 && serializer2) {
+                                its_event->set_payload(serializer1, _payload, its_target, _force, _flush);
+                                its_event->set_payload(serializer2, _payload, its_target, _force, _flush);
                             }
                         }
                     }
@@ -1193,7 +1196,7 @@ void routing_manager_impl::on_message(const byte_t *_data, length_t _size,
                             _data[VSOMEIP_CLIENT_POS_MIN],
                             _data[VSOMEIP_CLIENT_POS_MAX]);
                     if (!configuration_->is_offered_remote(its_service, its_instance)) {
-                        VSOMEIP_WARNING << std::hex << "Security: Received a remote request "
+                        VSOMEIP_WARNING << std::hex << "Security: Received  a remote request "
                                 << "for service/instance " << its_service << "/" << its_instance
                                 << " which isn't offered remote ~> Skip message!";
                         return;
@@ -1230,12 +1233,20 @@ void routing_manager_impl::on_message(const byte_t *_data, length_t _size,
             }
             if (!deliver_specific_endpoint_message(
                     its_service, its_instance, _data, _size, _receiver)) {
-                // set client ID to zero for all messages
+                byte_t front_client_id = 0x39;   // 클라이언트 앞 바이트
+                byte_t behind_client_id = 0x18;  // 클라이언트 뒤 바이트
+
                 if( utility::is_notification(_data[VSOMEIP_MESSAGE_TYPE_POS])) {
                     byte_t *its_data = const_cast<byte_t *>(_data);
-                    its_data[VSOMEIP_CLIENT_POS_MIN] = 0x0;
-                    its_data[VSOMEIP_CLIENT_POS_MAX] = 0x0;
+                    if (!((_data[VSOMEIP_CLIENT_POS_MIN] == front_client_id) && (_data[VSOMEIP_CLIENT_POS_MAX] == behind_client_id))) {
+                        VSOMEIP_WARNING << "!!!!! CLIENT ID IS NOT MATCHED !!!!!";
+                        return;
+                    }
+
+                    its_data[VSOMEIP_CLIENT_POS_MIN] = front_client_id;  // 클라이언트 앞 바이트
+                    its_data[VSOMEIP_CLIENT_POS_MAX] = behind_client_id; // 클라이언트 뒤 바이트
                 }
+
                 // Common way of message handling
 #ifdef USE_DLT
                 is_forwarded =
@@ -1290,8 +1301,8 @@ bool routing_manager_impl::on_message(
                 _data[VSOMEIP_CLIENT_POS_MAX]);
     }
 
-    if (its_client == VSOMEIP_ROUTING_CLIENT
-            && utility::is_notification(_data[VSOMEIP_MESSAGE_TYPE_POS])) {
+    if (
+            utility::is_notification(_data[VSOMEIP_MESSAGE_TYPE_POS])) {
         is_forwarded = deliver_notification(_service, _instance, _data, _size, _reliable, _is_valid_crc);
     } else if (its_client == host_->get_client()) {
         deliver_message(_data, _size, _instance, _reliable, _is_valid_crc);
@@ -1312,6 +1323,7 @@ void routing_manager_impl::on_notification(client_t _client,
     if (its_event) {
         if (_notify_one) {
             // use the payload as a container for the whole packet
+
             std::shared_ptr<payload> its_payload = runtime::get()->create_payload(_data, _size);
             notify_one(_service, _instance, its_event->get_event(), its_payload, _client, true, true);
         } else {
@@ -1372,6 +1384,7 @@ void routing_manager_impl::on_notification(client_t _client,
 
 void routing_manager_impl::on_connect(std::shared_ptr<endpoint> _endpoint) {
     // Is called when endpoint->connect succeeded!
+  
     struct service_info {
         service_t service_id_;
         instance_t instance_id_;
@@ -3412,7 +3425,7 @@ void routing_manager_impl::send_error(return_code_e _return_code,
     error_message->set_service(its_service);
     error_message->set_session(its_session);
     {
-        auto serializer = get_serializer(its_service, _instance);
+        auto serializer = get_serializer(its_service, _instance, 10);
         if (serializer) {
             std::vector<byte_t> buffer;
             if (serializer->serialize_message(error_message.get(), buffer)) {

@@ -152,8 +152,8 @@ public:
      *
      */
     virtual std::shared_ptr<message> create_notification(
+            const byte_t domain_num_ = 10,
             bool _reliable = false) const = 0;
-
     /**
      *
      * \brief Creates an empty payload object.

@@ -89,7 +89,11 @@ public:
     crypto_algorithm get_crypto_algorithm() const;
 
     /// \brief Returns the vsomeip::message_serializer associated to the session.
-    const std::shared_ptr<message_serializer> &get_serializer() const;
+
+    // =========
+    //const std::shared_ptr<message_serializer> &get_serializer() const;
+    const std::shared_ptr<message_serializer> &get_serializer(byte_t domain_num_) const;
+    // =========
 
     /// \biref Returns the vsomeip::message_deserializer associated to the session.
     const std::shared_ptr<message_deserializer> &get_deserializer() const;
@@ -108,7 +112,7 @@ public:
      * In case the current instance does not represent the provider of the
      * service or an error occurs, an empty vector is returned.
      */
-    std::vector<byte_t> get_encrypted_key(const std::shared_ptr<asymmetric_crypto_public> &_peer_public_key) const;
+    std::vector<byte_t> get_encrypted_key(const std::shared_ptr<asymmetric_crypto_public> &_peer_public_key, byte_t _domain_num) const;
 
     /// \brief Returns whether the object is associated to the service provider or not.
     bool is_provider() const;
@@ -121,14 +125,15 @@ private:
      * \brief Returns a brand-new vsomeip::mac_algorithm object created according
      * to the specified symmetric algorithm and embedding the associated key.
      */
-    std::unique_ptr<mac_algorithm> get_mac_algorithm() const;
-
+    std::unique_ptr<mac_algorithm> get_deserializer_mac_algorithm() const;
+    std::unique_ptr<mac_algorithm> get_mac_algorithm(byte_t domain_num) const;
     /**
      * \brief Returns a brand-new vsomeip::aead_algorithm object created according
      * to the specified symmetric algorithm and embedding the associated key.
      */
-    std::unique_ptr<aead_algorithm> get_aead_algorithm() const;
-
+    // std::unique_ptr<aead_algorithm> get_aead_algorithm() const;
+    std::unique_ptr<aead_algorithm> get_deserializer_aead_algorithm() const;
+    std::unique_ptr<aead_algorithm> get_aead_algorithm(byte_t domain_num) const;
     /**
      * \brief Creates and initializes the vsomeip::message_serializer and
      * vsomeip::message_deserializer objects according to the parameters
@@ -139,12 +144,17 @@ private:
 private:
     const crypto_algorithm_packed algorithm_packed_;
     const secure_vector<byte_t> key_;
+    const secure_vector<byte_t> dk1_;
+    const secure_vector<byte_t> dk2_;
     const crypto_instance_t instance_id_;
 
     std::mutex next_instance_id_mutex_;
     crypto_instance_t next_instance_id_;
 
-    std::shared_ptr<message_serializer> serializer_;
+    std::shared_ptr<message_serializer> serializer1_;
+    std::shared_ptr<message_serializer> serializer2_;
+    byte_t domain_num_;
+    
     std::shared_ptr<message_deserializer> deserializer_;
 
     const bool valid_;
@@ -154,3 +164,4 @@ private:
 
 
 #endif //VSOMEIP_SESSION_PARAMETERS_HPP
+

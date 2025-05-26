@@ -16,6 +16,8 @@
 #include "../../message/include/deserializer.hpp"
 #include "../../utility/include/byteorder.hpp"
 
+#include <vsomeip/constants.hpp>
+
 namespace vsomeip {
 
 /* ** SESSION ESTABLISHMENT MESSAGE ** */
@@ -48,7 +50,7 @@ void session_establishment_message::set_payload(std::shared_ptr<payload> _payloa
 
 length_t session_establishment_message::get_length() const {
     return message_impl::get_length() +
-           4 + /* protocol_version, asymmetric_algorithm id, message_digest_id, unused */
+           5 + /* protocol_version, asymmetric_algorithm id, message_digest_id, unused, domain_num */
            static_cast<length_t>(fingerprint_.size()) +
            static_cast<length_t>(challenge_.size());
 }
@@ -61,11 +63,13 @@ bool session_establishment_message::serialize(serializer *_to) const {
     }
 
     uint8_t unused(0);
+    byte_t tt=10; // domain_num set
     return nullptr != _to && 0 == _to->get_size() &&
            message_impl::serialize(_to) &&
            _to->serialize(static_cast<uint8_t>(protocol_version_)) &&
            _to->serialize(static_cast<uint8_t>(asymmetric_algorithm_)) &&
            _to->serialize(static_cast<uint8_t>(message_digest_algorithm_)) &&
+	       _to->serialize(tt) &&
            _to->serialize(unused) &&
            _to->serialize(challenge_.data(), static_cast<uint32_t>(challenge_.size())) &&
            _to->serialize(fingerprint_.data(), static_cast<uint32_t>(fingerprint_.size()));
@@ -75,6 +79,7 @@ bool session_establishment_message::deserialize(deserializer *_from) {
     uint8_t tmp_version;
     uint8_t tmp_asymmetric_algorithm;
     uint8_t tmp_message_digest_algorithm;
+    uint8_t tmp_domain_num_;
     uint8_t unused;
 
     valid_ = nullptr != _from &&
@@ -83,6 +88,7 @@ bool session_establishment_message::deserialize(deserializer *_from) {
              _from->deserialize(tmp_version) &&
              _from->deserialize(tmp_asymmetric_algorithm) &&
              _from->deserialize(tmp_message_digest_algorithm) &&
+             _from->deserialize(tmp_domain_num_) &&
              _from->deserialize(unused) &&
              _from->deserialize(challenge_.data(), challenge_.size()) &&
              _from->deserialize(fingerprint_.data(), challenge_.size());
@@ -95,6 +101,7 @@ bool session_establishment_message::deserialize(deserializer *_from) {
         valid_ = protocol_version::V_1_0 == protocol_version_ &&
                  FINGERPRINT_DIGEST_ALGORITHM == message_digest_algorithm_;
     }
+    domain_num_ = (int)tmp_domain_num_;
 
     return valid_;
 }
@@ -114,6 +121,10 @@ const certificate_fingerprint_t &session_establishment_message::get_fingerprint(
 
 bool session_establishment_message::is_valid() const {
     return valid_;
+}
+
+byte_t session_establishment_message::get_domain_num() const {
+    return domain_num_;
 }
 
 /* ** SESSION ESTABLISHMENT REQUEST ** */
@@ -155,6 +166,10 @@ session_establishment_response::session_establishment_response(const session_est
     challenge_ = _request.get_challenge();
     valid_ = _request.is_valid() && nullptr != session_parameters_ &&
              session_parameters_->is_valid() && session_parameters_->is_provider();
+
+    domain_num_ = _request.get_domain_num();
+    VSOMEIP_INFO << "<session_establishment_response::session_establishment_response> domain num is " << (int)domain_num_;
+
     set_session(_request.get_session());
     set_message_type(message_type_e::MT_RESPONSE);
     set_return_code(return_code_e::E_OK);
@@ -168,6 +183,8 @@ length_t session_establishment_response::get_length() const {
 
 bool session_establishment_response::serialize(serializer *_to) const {
 
+    VSOMEIP_WARNING << "<session_establishmnet_response::serialize> serializing...";
+
     crypto_instance_t instance_id;
     bool success = session_establishment_message::serialize(_to) &&
                    _to->serialize(static_cast<uint8_t>(session_parameters_->get_security_level())) &&
@@ -177,17 +194,19 @@ bool session_establishment_response::serialize(serializer *_to) const {
                    _to->serialize(instance_id);
 
     if (!success) {
+        VSOMEIP_ERROR << "<session_establishmnet_response::serialize> serializing failed!!";
         return false;
     }
 
-    auto encrypted_symmetric_key = session_parameters_->get_encrypted_key(public_key_);
+    auto encrypted_symmetric_key = session_parameters_->get_encrypted_key(public_key_, domain_num_);
     auto signature_length = static_cast<uint16_t>(private_key_->get_signature_length(_to->get_size()));
     success = !encrypted_symmetric_key.empty() &&
               _to->serialize(static_cast<uint16_t>(encrypted_symmetric_key.size())) &&
               _to->serialize(encrypted_symmetric_key) &&
               _to->serialize(signature_length);
 
-    if (!success) {
+    if (!success) {  // quiz
+        VSOMEIP_ERROR << "<session_establishmnet_response::serialize> serializing failed!!!!!";
         return false;
     }
 

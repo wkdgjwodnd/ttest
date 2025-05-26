@@ -56,6 +56,8 @@ const client_t ANY_CLIENT = 0xFFFF;
 
 const pending_subscription_id_t DEFAULT_SUBSCRIPTION = 0x0;
 
+const byte_t domain_num = 10; // domain_num set
+
 } // namespace vsomeip
 
 #endif // VSOMEIP_CONSTANTS_HPP
