@@ -30,7 +30,7 @@
    "routing" : "vsomeipd",
    "service-discovery" : 
    {
-      "enable" : "false",
+      "enable" : "true",
       "multicast" : "224.0.0.1",
       "port" : "30491",
       "protocol" : "udp"
