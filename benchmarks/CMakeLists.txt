@@ -226,6 +226,21 @@ configure_file(
 copy_to_builddir(${BENCH_SESSION_ESTABLISHMENT_FOLDER}/scripts/bench_session_establishment_master.sh
         ${BENCH_OUTPUT}/bench_session_establishment_master.sh bench_session_establishment_service)
 
+
+##############################################################################
+# test.json.in for custom benchmark configuration
+##############################################################################
+
+configure_file(
+        ${PROJECT_SOURCE_DIR}/benchmarks/test.json.in
+        ${PROJECT_SOURCE_DIR}/benchmarks/test.json
+        @ONLY)
+sign_configuration(${PROJECT_SOURCE_DIR}/benchmarks/test.json
+        ${CRYPTO_CONFIGURATION_SIGNATURE_KEY} ${OPENSSL_LOG} ${CRYPTO_LOCK})
+copy_to_builddir(${PROJECT_SOURCE_DIR}/benchmarks/test.json
+        ${BENCH_OUTPUT}/test.json build_benchmarks)
+
+
 ##############################################################################
 # Add benchmarks to the target build_benchmarks
 ##############################################################################
