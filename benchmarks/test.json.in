@@ -1,5 +1,5 @@
 {
-   "unicast" : "@DBENCH_IP_MASTER@",
+   "unicast" : "@BENCH_IP_MASTER@",
    "diagnosis":"0x12",
    "logging" :
    {
