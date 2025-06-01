@@ -26,6 +26,7 @@
 
 #include "../../endpoints/include/netlink_connector.hpp"
 #include "../../service_discovery/include/service_discovery_host.hpp"
+#include "../../runtime/include/domain_config.hpp"
 
 namespace vsomeip {
 

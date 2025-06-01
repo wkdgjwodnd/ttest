@@ -32,6 +32,7 @@
 #include "../include/routing_manager_host.hpp"
 #include "../include/routing_manager_impl.hpp"
 #include "../include/routing_manager_stub.hpp"
+#include "../../runtime/include/domain_config.hpp"
 #include "../include/serviceinfo.hpp"
 #include "../../configuration/include/configuration.hpp"
 #include "../../configuration/include/internal.hpp"
