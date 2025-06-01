@@ -1052,11 +1052,10 @@ void routing_manager_impl::notify_one(service_t _service, instance_t _instance,
                             its_event->set_message(_payload->get_data(), _payload->get_length(),
                                                    its_target, _force, _flush);
                         } else {
-                            auto serializer1 = get_serializer(_service, _instance, 10);
-                            auto serializer2 = get_serializer(_service, _instance, 20);
-                            if (serializer1 && serializer2) {
-                                its_event->set_payload(serializer1, _payload, its_target, _force, _flush);
-                                its_event->set_payload(serializer2, _payload, its_target, _force, _flush);
+
+                            for(auto dn : vsomeip::DOMAIN_TABLE){
+                                auto ser = get_serializer(_service, _instance, dn);
+                                if(ser) its_event->set_payload(ser, _payload, its_target, dn, _force, _flush);
                             }
                         }
                     }

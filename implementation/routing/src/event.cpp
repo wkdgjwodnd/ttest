@@ -101,20 +101,13 @@ const std::shared_ptr<payload> event::get_cached_payload() const {
 void event::set_payload(const std::shared_ptr<message_serializer> &_message_serializer,
                         std::shared_ptr<payload> &_payload, 
                         const byte_t domain_num_, bool _force, bool _flush) {
-
-    VSOMEIP_WARNING << "<evnet::set_payload> set_payload 1";
-
     std::lock_guard<std::mutex> its_lock(mutex_);
     if (is_provided_) {
         if (reset_payload(_message_serializer, _payload, domain_num_)) {
-            // VSOMEIP_WARNING << "<evnet::set_payload> reset_payload is true";
             if (is_updating_on_change_) {
-                // VSOMEIP_WARNING << "<evnet::set_payload> is_updating_on_change_ is true";
                 if (change_resets_cycle_) {
-                    // VSOMEIP_WARNING << "<evnet::set_payload> change_resets_cycle_ is true";
                     stop_cycle();
                 }
-                // VSOMEIP_WARNING << "<evnet::set_payload> notify flush detect";
                 notify(_flush);
 
                 if (change_resets_cycle_)
@@ -130,13 +123,10 @@ void event::set_payload(const std::shared_ptr<message_serializer> &_message_seri
 
 void event::set_payload(const std::shared_ptr<message_serializer> &_message_serializer,
                         std::shared_ptr<payload> &_payload, client_t _client, bool _force, bool _flush) {
-
-    VSOMEIP_WARNING << "<evnet::set_payload> set_payload 2";
-
     std::lock_guard<std::mutex> its_lock(mutex_);
     if (is_provided_) {
         if (set_payload_helper(_payload, _force)) {
-            if (reset_payload(_message_serializer, _payload, 10)) {
+            if (reset_payload(_message_serializer, _payload, 10)) {  // 기본으로 10으로 둠
                 if (is_updating_on_change_) {
                     notify_one(_client, _flush);
                 }
@@ -157,7 +147,7 @@ void event::set_payload(const std::shared_ptr<message_serializer> &_message_seri
     std::lock_guard<std::mutex> its_lock(mutex_);
     if (is_provided_) {
         if (set_payload_helper(_payload, _force)) {
-            if (reset_payload(_message_serializer, _payload, 10)) {
+            if (reset_payload(_message_serializer, _payload, 10)) {  // 기본으로 10으로 둠
                 if (is_updating_on_change_) {
                     notify_one(_target, _flush);
                 }

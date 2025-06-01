@@ -9,6 +9,7 @@
 #include <vsomeip/runtime.hpp>
 #include <map>
 #include <mutex>
+#include "domain_config.hpp"
 
 namespace vsomeip {
 

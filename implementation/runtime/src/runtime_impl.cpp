@@ -4,13 +4,18 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #include <vsomeip/defines.hpp>
+#include <array>
 
 #include "../include/application_impl.hpp"
 #include "../include/runtime_impl.hpp"
 #include "../../message/include/message_impl.hpp"
 #include "../../message/include/payload_impl.hpp"
 
+
 #include "../../logging/include/logger.hpp"
+
+static constexpr std::array<client_t,4> DOMAIN_CLIENTS{0x3918,0x3919,0x391A,0x391B};
+
 namespace vsomeip {
 
 std::map<std::string, std::string> runtime_impl::properties_;
@@ -85,27 +90,20 @@ std::shared_ptr<message> runtime_impl::create_response(
     return (its_response);
 }
 
-std::shared_ptr<message> runtime_impl::create_notification(
-        const byte_t domain_num_,
-        bool _reliable) const {
-    std::shared_ptr<message_impl> its_notification = std::make_shared<
-            message_impl>();
+std::shared_ptr<message> runtime_impl::create_notification(byte_t domain_num, bool _reliable) const {
+    auto its_notification = std::make_shared<message_impl>();
     its_notification->set_protocol_version(VSOMEIP_PROTOCOL_VERSION);
     its_notification->set_message_type(message_type_e::MT_NOTIFICATION);
     its_notification->set_return_code(return_code_e::E_OK);
     its_notification->set_reliable(_reliable);
     its_notification->set_interface_version(DEFAULT_MAJOR);
 
-    if(domain_num_ == 10){
-        its_notification->set_client(0x3918);
+    try {
+        its_notification->set_client(DOMAIN_CLIENTS[vsomeip::domain_index(domain_num)]);
+    } catch(const std::out_of_range &) {
+        its_notification->set_client(0x0000); // fallback / invalid domain
     }
-    else if (domain_num_ == 20) {
-        its_notification->set_client(0x3919);
-    }
-    else {
-        its_notification->set_client(0x0000);
-    }
-    return (its_notification);
+    return its_notification;
 }
 
 std::shared_ptr<payload> runtime_impl::create_payload() const {

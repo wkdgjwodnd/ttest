@@ -609,25 +609,16 @@ void routing_manager_base::notify(service_t _service, instance_t _instance,
     byte_t domain_2 = 20;
     std::shared_ptr<event> its_event = find_event(_service, _instance, _event);
     if (its_event) {
-        VSOMEIP_WARNING << "<routing_manager_base::notify> go its_event1";
-        auto serializer1 = get_serializer(_service, _instance, domain_1, true);  // domain_num1
-        its_event->set_payload(serializer1, _payload, domain_1, _force, _flush);
+        for(auto dn : vsomeip::DOMAIN_TABLE){
+            auto ser = get_serializer(_service, _instance, dn, true);
+            if(ser)
+                its_event->set_payload(ser, _payload, dn, _force, _flush);
+        }
     } else {
         VSOMEIP_WARNING << "Attempt to update the undefined event/field ["
             << std::hex << _service << "." << _instance << "." << _event
             << "]";
-    }
-
-    std::shared_ptr<event> its_event2 = find_event(_service, _instance, _event);
-    if (its_event2) {
-        VSOMEIP_WARNING << "<routing_manager_base::notify> go its_event2";
-        auto serializer2 = get_serializer(_service, _instance, domain_2, true);  // domain_num2
-        its_event2->set_payload(serializer2, _payload, domain_2, _force, _flush);
-    } else {
-        VSOMEIP_WARNING << "Attempt to update the undefined event/field ["
-            << std::hex << _service << "." << _instance << "." << _event
-            << "]";
-    }
+    }    
 }
 
 void routing_manager_base::notify_one(service_t _service, instance_t _instance,
