@@ -1,5 +1,6 @@
 {
    "unicast" : "@BENCH_IP_MASTER@",
+   "netmask" : "255.255.255.0",
    "diagnosis":"0x12",
    "logging" :
    {
@@ -31,6 +32,7 @@
       {
          "service" : "0x1234",
          "instance" : "0x5678",
+         "unicast" : "@BENCH_IP_MASTER@",
          "unreliable" : "30509"
       }
    ],
