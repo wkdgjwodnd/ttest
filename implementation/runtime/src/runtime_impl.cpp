@@ -99,9 +99,6 @@ std::shared_ptr<message> runtime_impl::create_notification(
     if(domain_num_ == 10){
         its_notification->set_client(0x3918);
     }
-    else if (domain_num_ == 20) {
-        its_notification->set_client(0x3919);
-    }
     else {
         its_notification->set_client(0x0000);
     }

@@ -145,14 +145,12 @@ private:
     const crypto_algorithm_packed algorithm_packed_;
     const secure_vector<byte_t> key_;
     const secure_vector<byte_t> dk1_;
-    const secure_vector<byte_t> dk2_;
     const crypto_instance_t instance_id_;
 
     std::mutex next_instance_id_mutex_;
     crypto_instance_t next_instance_id_;
 
     std::shared_ptr<message_serializer> serializer1_;
-    std::shared_ptr<message_serializer> serializer2_;
     byte_t domain_num_;
     
     std::shared_ptr<message_deserializer> deserializer_;
