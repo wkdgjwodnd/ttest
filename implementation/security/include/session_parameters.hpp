@@ -146,6 +146,9 @@ private:
     const secure_vector<byte_t> key_;
     const secure_vector<byte_t> dk1_;
     const secure_vector<byte_t> dk2_;
+    const secure_vector<byte_t> dk3_;
+    const secure_vector<byte_t> dk4_;
+
     const crypto_instance_t instance_id_;
 
     std::mutex next_instance_id_mutex_;
@@ -153,6 +156,9 @@ private:
 
     std::shared_ptr<message_serializer> serializer1_;
     std::shared_ptr<message_serializer> serializer2_;
+    std::shared_ptr<message_serializer> serializer3_;
+    std::shared_ptr<message_serializer> serializer4_;
+
     byte_t domain_num_;
     
     std::shared_ptr<message_deserializer> deserializer_;

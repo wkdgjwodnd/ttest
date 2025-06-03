@@ -46,13 +46,13 @@ session_parameters::session_parameters(crypto_algorithm_packed _algorithm_packed
         : algorithm_packed_(_algorithm_packed),
           dk1_(_random.randomize(get_key_length(get_crypto_algorithm()))),
           dk2_(_random.randomize(get_key_length(get_crypto_algorithm()))),
+          dk3_(_random.randomize(get_key_length(get_crypto_algorithm()))),
+          dk4_(_random.randomize(get_key_length(get_crypto_algorithm()))),
           instance_id_(PROVIDER_INSTANCE_ID), next_instance_id_(PROVIDER_INSTANCE_ID + 1),
           valid_(_algorithm_packed.is_valid_combination() &&
-                 (security_level::SL_NOSEC == get_security_level() || (!dk1_.empty() && !dk2_.empty())) &&
+                 (security_level::SL_NOSEC == get_security_level() || (!dk1_.empty() && !dk2_.empty() && !dk3_.empty() && !dk4_.empty())) &&
                  initialize_serializers(_buffer_shrink_threshold) &&
                  deserializer_->add_allowed_peer(PROVIDER_INSTANCE_ID)) {
-    VSOMEIP_WARNING << "session_parameters::session_parameters1";
-
 }
 
 session_parameters::session_parameters(crypto_algorithm_packed _algorithm_packed,
@@ -69,7 +69,6 @@ session_parameters::session_parameters(crypto_algorithm_packed _algorithm_packed
                  (security_level::SL_NOSEC == get_security_level() || !key_.empty()) &&
                  initialize_serializers(_buffer_shrink_threshold) &&
                  deserializer_->add_allowed_peer(PROVIDER_INSTANCE_ID)) {
-    VSOMEIP_WARNING << "session_parameters::session_parameters2";
 }
 
 security_level session_parameters::get_security_level() const {
@@ -81,16 +80,18 @@ crypto_algorithm session_parameters::get_crypto_algorithm() const {
 }
 
 const std::shared_ptr<message_serializer> &session_parameters::get_serializer(byte_t domain_num_) const {
-    VSOMEIP_WARNING << "session_parameters::get_serializer";
     if (domain_num_ == 10) {
-        VSOMEIP_WARNING << "        get_serializer 10";
         return serializer1_;
     }
     else if (domain_num_ == 20) {
-        VSOMEIP_WARNING << "        get_serializer 20";
         return serializer2_;
     }
-    VSOMEIP_WARNING << "        can't get serializer";
+    else if (domain_num_ == 30) {
+        return serializer3_;
+    }
+    else if (domain_num_ == 40) {
+        return serializer3_;
+    }
     return serializer1_;
 }
 
@@ -115,18 +116,23 @@ session_parameters::get_encrypted_key(const std::shared_ptr<asymmetric_crypto_pu
 
     std::vector<byte_t> encrypted_key;
     if (is_provider() && is_valid() && _peer_public_key && _domain_num == 10) {
-	VSOMEIP_INFO << "domain num is " << (int)_domain_num;
         _peer_public_key->encipher(dk1_.data(), dk1_.size(), encrypted_key);
     }
     else if (is_provider() && is_valid() && _peer_public_key && _domain_num == 20) {
         _peer_public_key->encipher(dk2_.data(), dk2_.size(), encrypted_key);
-	VSOMEIP_INFO << "domain num is " << (int)_domain_num;
+    }
+    else if (is_provider() && is_valid() && _peer_public_key && _domain_num == 30) {
+        _peer_public_key->encipher(dk3_.data(), dk3_.size(), encrypted_key);
+    }
+    else if (is_provider() && is_valid() && _peer_public_key && _domain_num == 40) {
+        _peer_public_key->encipher(dk4_.data(), dk4_.size(), encrypted_key);
     }
     else {
         VSOMEIP_ERROR << "Failed to get encrypted key";
     }
     return encrypted_key;
 }
+
 
 bool session_parameters::is_provider() const {
     return PROVIDER_INSTANCE_ID == instance_id_;
@@ -137,7 +143,6 @@ bool session_parameters::is_valid() const {
 }
 
 std::unique_ptr<mac_algorithm> session_parameters::get_mac_algorithm(byte_t domain_num_) const {
-    VSOMEIP_WARNING << "session_parameters::get_mac_algorithm";
     if (domain_num_ == 10) {
         switch (get_crypto_algorithm()) {
             case crypto_algorithm::CA_CHACHA20_POLY1305_256:
@@ -178,6 +183,46 @@ std::unique_ptr<mac_algorithm> session_parameters::get_mac_algorithm(byte_t doma
                 return std::unique_ptr<mac_algorithm>();
         }
     }
+    else if (domain_num_ == 30) {
+        switch (get_crypto_algorithm()) {
+            case crypto_algorithm::CA_CHACHA20_POLY1305_256:
+                return std::unique_ptr<mac_algorithm>(new chacha20_poly1305(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_AES_GCM_128:
+                return std::unique_ptr<mac_algorithm>(new aes_gcm<aes_key_length::AES_128>(dk3_, instance_id_));
+            case crypto_algorithm::CA_AES_GCM_256:
+                return std::unique_ptr<mac_algorithm>(new aes_gcm<aes_key_length::AES_256>(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_AES_CCM_128:
+                return std::unique_ptr<mac_algorithm>(new aes_ccm<aes_key_length::AES_128>(dk3_, instance_id_));
+            case crypto_algorithm::CA_AES_CCM_256:
+                return std::unique_ptr<mac_algorithm>(new aes_ccm<aes_key_length::AES_256>(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_INVALID:
+            case crypto_algorithm::CA_NULL:
+                return std::unique_ptr<mac_algorithm>();
+        }
+    }
+    else if (domain_num_ == 40) {
+        switch (get_crypto_algorithm()) {
+            case crypto_algorithm::CA_CHACHA20_POLY1305_256:
+                return std::unique_ptr<mac_algorithm>(new chacha20_poly1305(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_AES_GCM_128:
+                return std::unique_ptr<mac_algorithm>(new aes_gcm<aes_key_length::AES_128>(dk4_, instance_id_));
+            case crypto_algorithm::CA_AES_GCM_256:
+                return std::unique_ptr<mac_algorithm>(new aes_gcm<aes_key_length::AES_256>(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_AES_CCM_128:
+                return std::unique_ptr<mac_algorithm>(new aes_ccm<aes_key_length::AES_128>(dk4_, instance_id_));
+            case crypto_algorithm::CA_AES_CCM_256:
+                return std::unique_ptr<mac_algorithm>(new aes_ccm<aes_key_length::AES_256>(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_INVALID:
+            case crypto_algorithm::CA_NULL:
+                return std::unique_ptr<mac_algorithm>();
+        }
+    }
     return std::unique_ptr<mac_algorithm>();
 }
 
@@ -204,7 +249,6 @@ std::unique_ptr<mac_algorithm> session_parameters::get_deserializer_mac_algorith
 }
 
 std::unique_ptr<aead_algorithm> session_parameters::get_aead_algorithm(byte_t domain_num_) const {
-    VSOMEIP_WARNING << "session_parameters::get_aead_algorithm";
     if (domain_num_ == 10) {
         switch (get_crypto_algorithm()) {
             case crypto_algorithm::CA_CHACHA20_POLY1305_256:
@@ -245,7 +289,46 @@ std::unique_ptr<aead_algorithm> session_parameters::get_aead_algorithm(byte_t do
                 return std::unique_ptr<aead_algorithm>();
         }
     }
-    VSOMEIP_WARNING << "session_parameters::get_aead_algorithm not found";
+    else if (domain_num_ == 30) {
+        switch (get_crypto_algorithm()) {
+            case crypto_algorithm::CA_CHACHA20_POLY1305_256:
+                return std::unique_ptr<aead_algorithm>(new chacha20_poly1305(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_AES_GCM_128:
+                return std::unique_ptr<aead_algorithm>(new aes_gcm<aes_key_length::AES_128>(dk3_, instance_id_));
+            case crypto_algorithm::CA_AES_GCM_256:
+                return std::unique_ptr<aead_algorithm>(new aes_gcm<aes_key_length::AES_256>(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_AES_CCM_128:
+                return std::unique_ptr<aead_algorithm>(new aes_ccm<aes_key_length::AES_128>(dk3_, instance_id_));
+            case crypto_algorithm::CA_AES_CCM_256:
+                return std::unique_ptr<aead_algorithm>(new aes_ccm<aes_key_length::AES_256>(dk3_, instance_id_));
+
+            case crypto_algorithm::CA_INVALID:
+            case crypto_algorithm::CA_NULL:
+                return std::unique_ptr<aead_algorithm>();
+        }
+    }
+    else if (domain_num_ == 40) {
+        switch (get_crypto_algorithm()) {
+            case crypto_algorithm::CA_CHACHA20_POLY1305_256:
+                return std::unique_ptr<aead_algorithm>(new chacha20_poly1305(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_AES_GCM_128:
+                return std::unique_ptr<aead_algorithm>(new aes_gcm<aes_key_length::AES_128>(dk4_, instance_id_));
+            case crypto_algorithm::CA_AES_GCM_256:
+                return std::unique_ptr<aead_algorithm>(new aes_gcm<aes_key_length::AES_256>(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_AES_CCM_128:
+                return std::unique_ptr<aead_algorithm>(new aes_ccm<aes_key_length::AES_128>(dk4_, instance_id_));
+            case crypto_algorithm::CA_AES_CCM_256:
+                return std::unique_ptr<aead_algorithm>(new aes_ccm<aes_key_length::AES_256>(dk4_, instance_id_));
+
+            case crypto_algorithm::CA_INVALID:
+            case crypto_algorithm::CA_NULL:
+                return std::unique_ptr<aead_algorithm>();
+        }
+    }
     return std::unique_ptr<aead_algorithm>();
 }
 
@@ -277,7 +360,9 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
     switch (get_security_level()) {
         case security_level::SL_NOSEC: {
             serializer1_ = std::make_shared<message_serializer_nosec>(_buffer_shrink_threshold);
-	    serializer2_ = std::make_shared<message_serializer_nosec>(_buffer_shrink_threshold);
+	        serializer2_ = std::make_shared<message_serializer_nosec>(_buffer_shrink_threshold);
+            serializer3_ = std::make_shared<message_serializer_nosec>(_buffer_shrink_threshold);
+            serializer4_ = std::make_shared<message_serializer_nosec>(_buffer_shrink_threshold);
             deserializer_ = std::make_shared<message_deserializer_nosec>(_buffer_shrink_threshold);
             return true;
         }
@@ -285,9 +370,11 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
         case security_level::SL_AUTHENTICATION: {
             auto serializer_algorithm1 = get_mac_algorithm(10);
 	        auto serializer_algorithm2 = get_mac_algorithm(20);
+            auto serializer_algorithm3 = get_mac_algorithm(30);
+            auto serializer_algorithm4 = get_mac_algorithm(40);
             auto deserializer_algorithm = get_deserializer_mac_algorithm();
 
-            if (!serializer_algorithm1 || !serializer_algorithm2 || !deserializer_algorithm) {
+            if (!serializer_algorithm1 || !serializer_algorithm2 || !serializer_algorithm3 || !serializer_algorithm4 || !deserializer_algorithm) {
                 return false;
             }
 
@@ -295,17 +382,20 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
                     _buffer_shrink_threshold, std::move(serializer_algorithm1));
             serializer2_ = std::make_shared<message_serializer_authentication>(
                     _buffer_shrink_threshold, std::move(serializer_algorithm2));
+            serializer3_ = std::make_shared<message_serializer_authentication>(
+                    _buffer_shrink_threshold, std::move(serializer_algorithm3));
+            serializer4_ = std::make_shared<message_serializer_authentication>(
+                    _buffer_shrink_threshold, std::move(serializer_algorithm4));
             deserializer_ = std::make_shared<message_deserializer_authentication>(
                     _buffer_shrink_threshold, std::move(deserializer_algorithm));
             return true;
         }
 
         case security_level::SL_CONFIDENTIALITY: {
-            VSOMEIP_WARNING << "session_parameters::initialize_serializers serializer_algorithm1";
             auto serializer_algorithm1 = get_aead_algorithm(10);
-            VSOMEIP_WARNING << "session_parameters::initialize_serializers serializer_algorithm2";
             auto serializer_algorithm2 = get_aead_algorithm(20);
-            VSOMEIP_WARNING << "session_parameters::initialize_serializers deserializer_algorithm";
+            auto serializer_algorithm3 = get_aead_algorithm(30);
+            auto serializer_algorithm4 = get_aead_algorithm(40);
             auto deserializer_algorithm = get_deserializer_aead_algorithm();
 
             if (!serializer_algorithm1 || !serializer_algorithm2 || !deserializer_algorithm) {
@@ -316,6 +406,10 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
                     _buffer_shrink_threshold, std::move(serializer_algorithm1));
             serializer2_ = std::make_shared<message_serializer_confidentiality>(
                     _buffer_shrink_threshold, std::move(serializer_algorithm2));
+            serializer3_ = std::make_shared<message_serializer_confidentiality>(
+                    _buffer_shrink_threshold, std::move(serializer_algorithm3));
+            serializer4_ = std::make_shared<message_serializer_confidentiality>(
+                    _buffer_shrink_threshold, std::move(serializer_algorithm4));
             deserializer_ = std::make_shared<message_deserializer_confidentiality>(
                     _buffer_shrink_threshold, std::move(deserializer_algorithm));
             return true;

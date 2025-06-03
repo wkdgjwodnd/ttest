@@ -1054,9 +1054,13 @@ void routing_manager_impl::notify_one(service_t _service, instance_t _instance,
                         } else {
                             auto serializer1 = get_serializer(_service, _instance, 10);
                             auto serializer2 = get_serializer(_service, _instance, 20);
-                            if (serializer1 && serializer2) {
+                            auto serializer3 = get_serializer(_service, _instance, 30);
+                            auto serializer4 = get_serializer(_service, _instance, 40);
+                            if (serializer1 && serializer2 && serializer3 && serializer4) {
                                 its_event->set_payload(serializer1, _payload, its_target, _force, _flush);
                                 its_event->set_payload(serializer2, _payload, its_target, _force, _flush);
+                                its_event->set_payload(serializer3, _payload, its_target, _force, _flush);
+                                its_event->set_payload(serializer4, _payload, its_target, _force, _flush);
                             }
                         }
                     }
