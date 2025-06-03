@@ -608,7 +608,7 @@ void routing_manager_base::notify(service_t _service, instance_t _instance,
     byte_t domain_1 = 10;
     byte_t domain_2 = 20;
     byte_t domain_3 = 30;
-    byte_t domain_4 = 30;
+    byte_t domain_4 = 40;
 
     std::shared_ptr<event> its_event = find_event(_service, _instance, _event);
     if (its_event) {
