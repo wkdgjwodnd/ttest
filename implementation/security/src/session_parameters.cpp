@@ -226,7 +226,7 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
             auto serializer_algorithm1 = get_mac_algorithm(10);
             auto deserializer_algorithm = get_deserializer_mac_algorithm();
 
-            if (!serializer_algorithm1 || !serializer_algorithm2 || !deserializer_algorithm) {
+            if (!serializer_algorithm1 || !deserializer_algorithm) {
                 return false;
             }
 
@@ -241,7 +241,7 @@ bool session_parameters::initialize_serializers(uint32_t _buffer_shrink_threshol
             auto serializer_algorithm1 = get_aead_algorithm(10);
             auto deserializer_algorithm = get_deserializer_aead_algorithm();
 
-            if (!serializer_algorithm1 || !serializer_algorithm2 || !deserializer_algorithm) {
+            if (!serializer_algorithm1 || !deserializer_algorithm) {
                 return false;
             }
 
